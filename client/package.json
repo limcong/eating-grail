@@ -1,0 +1,32 @@
+{
+  "name": "eating-grail",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^18.0.1",
+    "react-dom": "^18.0.1",
+    "resize-observer-polyfill": "^1.5.1",
+    "styled-components": "^5.3.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "core-js": "^3.8.1"
+  },
+  "scripts": {
+    "build": "webpack --config ./webpack.config.js --mode production",
+    "dev": "webpack serve --hot --config ./webpack.config.js --mode development --port 8080",
+    "typeCheck": "tsc  --watch --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/limcong/eating-grail.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/limcong/eating-grail/issues"
+  },
+  "homepage": "https://github.com/limcong/eating-grail#readme"
+}
