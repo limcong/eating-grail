@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --config ./client/webpack.config.js --mode production",
     "start-client": "webpack serve --hot --config ./client/webpack.config.js --mode development --port 8080",
-    "start": "ts-node ./server/index.ts"
+    "start": "ts-node ./server/index.ts",
+    "update":"git pull && yarn build"
   },
   "repository": {
     "type": "git",
