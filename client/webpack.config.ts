@@ -1,8 +1,10 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const path = require("path");
-const resolve = (...dir) => path.resolve(__dirname, ...dir);
+import HtmlWebpackPlugin from "html-webpack-plugin";
+
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import path from "path";
+
+const resolve = (...dir: string[]) => path.resolve(__dirname, ...dir);
 
 const PUBLIC_PATH = "./public";
 
@@ -26,11 +28,10 @@ module.exports = {
   },
   devServer: {
     disableHostCheck: true,
-    https: true, // 本地调试开启https
   },
   optimization: {
     usedExports: true, // 识别无用代码 未使用的导出内容不会被生成 usedExports 依赖于 terser 去检测语句中的副作用。
-     sideEffects: true,  // 开启副作用标识功能 sideEffects更为有效是因为它允许跳过整个模块/文件和整个文件子树。
+    sideEffects: true, // 开启副作用标识功能 sideEffects更为有效是因为它允许跳过整个模块/文件和整个文件子树。
   },
   module: {
     rules: [
@@ -68,7 +69,8 @@ module.exports = {
       },
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/index.[contenthash:10].css', // 设置css文件的输出路径
+      filename: "css/index.[contenthash:10].css", // 设置css文件的输出路径
     }),
   ],
+  devtool: "source-map",
 };
