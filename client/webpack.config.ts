@@ -1,37 +1,46 @@
-import HtmlWebpackPlugin from "html-webpack-plugin";
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-import { CleanWebpackPlugin } from "clean-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import path from "path";
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import path from 'path';
 
 const resolve = (...dir: string[]) => path.resolve(__dirname, ...dir);
 
-const PUBLIC_PATH = "./public";
+const PUBLIC_PATH = './public';
 
-const BUILD_PATH = "../dist";
+const BUILD_PATH = '../dist';
 
-const INPUT_PATH = "./src/index.tsx";
+const INPUT_PATH = './src/index.tsx';
 
-module.exports = {
+const exportModule = {
   entry: {
     bundle: path.resolve(__dirname, INPUT_PATH),
   },
   output: {
-    filename: "static/js/[name].[hash].js",
+    filename: 'static/js/[name].[hash].js',
     path: path.resolve(__dirname, BUILD_PATH),
+    publicPath: '/',
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      "@": resolve("./src"),
+      '@': resolve('./src'),
     },
   },
   devServer: {
-    disableHostCheck: true,
+    static: {
+      directory: path.resolve(__dirname, PUBLIC_PATH),
+    },
+    compress: true,
+    port: 4000,
+    allowedHosts: 'auto',
+    hot: true,
+    open: true,
+    historyApiFallback: true,
   },
   optimization: {
-    usedExports: true, // 识别无用代码 未使用的导出内容不会被生成 usedExports 依赖于 terser 去检测语句中的副作用。
-    sideEffects: true, // 开启副作用标识功能 sideEffects更为有效是因为它允许跳过整个模块/文件和整个文件子树。
+    usedExports: true,
+    sideEffects: true,
   },
   module: {
     rules: [
@@ -39,29 +48,29 @@ module.exports = {
         test: /\.(ts|js)x?$/,
         use: [
           {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
-              presets: ["@babel/preset-react"],
+              presets: ['@babel/preset-react'],
             },
           },
           {
-            loader: "ts-loader",
+            loader: 'ts-loader',
           },
         ],
         exclude: /(node_modules)/,
       },
-      { test: /\.css$/, use: ["style-loader", "css-loader"] },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       {
         test: /\.(png|jpg|jpeg|gif|webp)$/,
-        type: "asset",
+        type: 'asset',
       },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: resolve(PUBLIC_PATH, "index.html"),
-      filename: "index.html",
+      template: resolve(PUBLIC_PATH, 'index.html'),
+      filename: 'index.html',
       favicon: false,
       minify: {
         removeComments: true,
@@ -69,8 +78,12 @@ module.exports = {
       },
     }),
     new MiniCssExtractPlugin({
-      filename: "css/index.[contenthash:10].css", // 设置css文件的输出路径
+      filename: 'css/index.[contenthash:10].css',
     }),
   ],
-  devtool: "source-map",
+  devtool: 'source-map',
 };
+
+module.exports = exportModule;
+
+export default exportModule;
