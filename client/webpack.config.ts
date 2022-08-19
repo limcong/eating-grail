@@ -64,6 +64,18 @@ const exportModule = {
         test: /\.(png|jpg|jpeg|gif|webp)$/,
         type: 'asset',
       },
+      {
+        test: /\.(woff|woff2|ttf|eot)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'static/media/[name].[hash:8].[ext]',
+              esModule: false,
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [

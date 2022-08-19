@@ -19,6 +19,7 @@ export const Dp: React.FC = () => {
         style={{ marginBottom: '30px', marginTop: '30px' }}
       />
       <button
+        type="button"
         onClick={() => {
           if (value) {
             persons.push(new Person({ name: value, scope: 10000 }));

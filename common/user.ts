@@ -2,6 +2,6 @@ import { Organization } from './organization';
 
 export interface User {
   id: number;
-  orgId: Organization['id'];
+  orgIds: Array<Organization['id']>;
   name: string;
 }
